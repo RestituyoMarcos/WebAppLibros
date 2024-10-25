@@ -1,3 +1,12 @@
+import plugin from "tailwindcss/plugin"
+import colors from "tailwindcss/colors"
+import { parseColor } from "tailwindcss/lib/util/color"
+
+/** Converts HEX color to RGB */
+const toRGB = (value) => {
+  return parseColor(value).color.join(" ");
+};
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
@@ -90,16 +99,14 @@ export default {
       },
     },
   },
-  plugins: [
-    forms,//require("@tailwindcss/forms"),
-    plugin(function ({ addBase, matchUtilities }) {
+  plugins: [function ({ addBase, matchUtilities }) {
       addBase({
         // Default colors
           ":root": {
           // eslint-disable-next-line no-undef
-          "--color-primary": toRGB(colors.blue["800"]), //Paleta principal 
+          "--color-primary": toRGB("#182381"), //Paleta principal 
           "--color-secondary": toRGB(colors.gray["200"]),
-          "--color-success": toRGB(colors.red["800"]),//toRGB(colors.teal["600"]),
+          "--color-success": toRGB(colors.green["800"]),//toRGB(colors.teal["600"]),
           "--color-info": toRGB(colors.blue["500"]),
           "--color-warning": toRGB(colors.amber["500"]),
           "--color-pending": toRGB(colors.amber["600"]),
@@ -108,117 +115,9 @@ export default {
           "--color-light200": toRGB(colors.slate["200"]),
           "--color-dark": toRGB(colors.slate["800"]),
         },
-        // Default dark-mode colors
-        ".dark": {
-          "--color-primary": toRGB(colors.red["800"]),//toRGB(colors.cyan["800"]),
-          "--color-darkmode-50": "87 103 132",
-          "--color-darkmode-100": "74 90 121",
-          "--color-darkmode-200": "65 81 114",
-          "--color-darkmode-300": "53 69 103",
-          "--color-darkmode-400": "48 61 93",
-          "--color-darkmode-500": "41 53 82",
-          "--color-darkmode-600": "40 51 78",
-          "--color-darkmode-700": "35 45 69",
-          "--color-darkmode-800": "27 37 59",
-          "--color-darkmode-900": "15 23 42",
-        },
-        // Theme 1 colors
-        ".theme-1": {
-          "--color-primary": toRGB(colors.blue["800"]),
-          "--color-secondary": toRGB(colors.slate["200"]),
-          "--color-success": toRGB(colors.lime["500"]),
-          "--color-info": toRGB(colors.cyan["500"]),
-          "--color-warning": toRGB(colors.yellow["400"]),
-          "--color-pending": toRGB(colors.orange["500"]),
-          "--color-danger": toRGB(colors.red["600"]),
-          "--color-light": toRGB(colors.slate["100"]),
-          "--color-dark": toRGB(colors.slate["800"]),
-          "&.dark": {
-            "--color-primary": toRGB(colors.emerald["800"]),
-          },
-        },
-        // Theme 2 colors
-        ".theme-2": {
-          "--color-primary": toRGB(colors.blue["900"]),
-          "--color-secondary": toRGB(colors.slate["200"]),
-          "--color-success": toRGB(colors.teal["600"]),
-          "--color-info": toRGB(colors.cyan["500"]),
-          "--color-warning": toRGB(colors.amber["500"]),
-          "--color-pending": toRGB(colors.orange["500"]),
-          "--color-danger": toRGB(colors.red["700"]),
-          "--color-light": toRGB(colors.slate["100"]),
-          "--color-dark": toRGB(colors.slate["800"]),
-          "&.dark": {
-            "--color-primary": toRGB(colors.blue["800"]),
-          },
-        },
-        // Theme 3 colors
-        ".theme-3": {
-          "--color-primary": toRGB(colors.emerald["900"]),
-          "--color-secondary": toRGB(colors.slate["200"]),
-          "--color-success": toRGB(colors.emerald["600"]),
-          "--color-info": toRGB(colors.cyan["500"]),
-          "--color-warning": toRGB(colors.yellow["400"]),
-          "--color-pending": toRGB(colors.amber["500"]),
-          "--color-danger": toRGB(colors.rose["600"]),
-          "--color-light": toRGB(colors.slate["100"]),
-          "--color-dark": toRGB(colors.slate["800"]),
-          "&.dark": {
-            "--color-primary": toRGB(colors.cyan["800"]),
-          },
-        },
-        // Theme 4 colors
-        ".theme-4": {
-          "--color-primary": toRGB(colors.indigo["900"]),
-          "--color-secondary": toRGB(colors.slate["200"]),
-          "--color-success": toRGB(colors.emerald["600"]),
-          "--color-info": toRGB(colors.cyan["500"]),
-          "--color-warning": toRGB(colors.yellow["500"]),
-          "--color-pending": toRGB(colors.orange["600"]),
-          "--color-danger": toRGB(colors.red["700"]),
-          "--color-light": toRGB(colors.slate["100"]),
-          "--color-dark": toRGB(colors.slate["800"]),
-          "&.dark": {
-            "--color-primary": toRGB(colors.indigo["700"]),
-          },
-        },
+        
       });
-
-      // Animation delay utilities
-      matchUtilities(
-        {
-          "animate-delay": (value) => ({
-            "animation-delay": value,
-          }),
-        },
-        {
-          values: (() => {
-            const values = {};
-            for (let i = 1; i <= 50; i++) {
-              values[i * 10] = `${i * 0.1}s`;
-            }
-            return values;
-          })(),
-        }
-      );
-
-      // Animation fill mode utilities
-      matchUtilities(
-        {
-          "animate-fill-mode": (value) => ({
-            "animation-fill-mode": value,
-          }),
-        },
-        {
-          values: {
-            none: "none",
-            forwards: "forwards",
-            backwards: "backwards",
-            both: "both",
-          },
-        }
-      );
-    }),
+    }
   ],
 }
 

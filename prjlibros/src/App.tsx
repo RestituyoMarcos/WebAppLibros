@@ -1,6 +1,3 @@
-import './App.css'
-import 'devextreme/dist/css/dx.dark.css';
-import 'sweetalert2/src/sweetalert2.scss'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import BookList from './components/BookList'
 import BookDetails from './components/BookDetails'

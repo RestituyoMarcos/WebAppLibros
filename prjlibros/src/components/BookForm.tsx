@@ -102,28 +102,28 @@ const BookForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Título:</label>
-        <input type="text" id="title" name="title" value={book.title} onChange={handleChange} />
+    <form onSubmit={handleSubmit} className='flex-row items-center justify-center content-center w-2/6'>
+      <div className="flex justify-between h-20 items-center my-2">
+        <label htmlFor="title" className='text-righ w-2/5'>Título:</label>
+        <input type="text" id="title" name="title" className='h-10 w-3/5' value={book.title} onChange={handleChange} />
       </div>
-      <div>
-        <label htmlFor="description">Descripción:</label>
-        <textarea id="description" name="description" value={book.description} onChange={handleChange} />
+      <div className="flex justify-between h-30  items-center my-2">
+        <label htmlFor="description" className='text-righ w-2/5'>Descripción:</label>
+        <textarea id="description" name="description" className='h-20 w-3/5' value={book.description} onChange={handleChange} />
       </div>
-      <div>
-        <label htmlFor="excerpt">Extracto:</label>
-        <textarea id="excerpt" name="excerpt" value={book.excerpt} onChange={handleChange} />
+      <div className="flex justify-between h-30  items-center my-2">
+        <label htmlFor="excerpt" className='text-righ w-2/5'>Extracto:</label>
+        <textarea id="excerpt" name="excerpt"  className='h-20 w-3/5' value={book.excerpt} onChange={handleChange} />
       </div>
-      <div>
-        <label htmlFor="pageCount">Número de páginas:</label>
-        <input type="number" id="pageCount" name="pageCount" value={book.pageCount} onChange={handleChange} />
+      <div className="flex justify-between h-30 items-center my-2">
+        <label htmlFor="pageCount" className='text-righ w-2/5'>Páginas:</label>
+        <input type="number" id="pageCount" name="pageCount" className='h-10 w-3/5' value={book.pageCount} onChange={handleChange} />
       </div>
-      <div>
-        <label htmlFor="publishDate">Fecha de publicación:</label>
-        <input type="date" id="publishDate" name="publishDate" value={book.publishDate} onChange={handleChange} />
+      <div className="flex justify-between w-full h-30 items-center my-2">
+        <label htmlFor="publishDate" className='text-righ w-2/5'>Fecha de publicación:</label>
+        <input type="date" id="publishDate" name="publishDate" className='h-10 w-3/5' value={new Date(book.publishDate).toLocaleDateString()} onChange={handleChange} />
       </div>
-      <button type="submit">{id ? 'Actualizar' : 'Crear'}</button>
+      <button type="submit" className="bg-success border-success text-white px-5 py-2">{id ? 'Actualizar' : 'Crear'}</button>
     </form>
   );
 };

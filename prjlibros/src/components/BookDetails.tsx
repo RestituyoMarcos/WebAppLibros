@@ -72,16 +72,16 @@ const BookDetails = () => {
 
   return (
     <div>
-      <CardContent>
+      <CardContent className='bg-slate-900'>
         <Typography variant="h5" component="div">
           {book.title}
         </Typography>
-        <Typography className='text-slate-300' sx={{ color: 'text.secondary', mb: 1.5 }}>{formatDateLocaleString(book.publishDate)}</Typography>
-        <Typography variant="body2">
+        <Typography className='text-slate-400' >{formatDateLocaleString(book.publishDate)}</Typography>
+        <Typography variant="body2" className=''>
           {book.description}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions className='flex justify-between'>
         <Button variant='contained' size="small" onClick={()=> navegador('/books')}>Volver</Button>
         <Button variant='contained' color='error' size="small" onClick={()=>handleDelete()}>Eliminar</Button>
       </CardActions>

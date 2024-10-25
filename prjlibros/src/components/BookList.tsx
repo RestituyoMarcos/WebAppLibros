@@ -83,10 +83,10 @@ const BookList = () => {
   };
 
   return (
-    <div>
+    <div className="w-full">
 
-      <h1 className='text-3xl p-10 w-full h-20'>Lista de libros</h1>
-      <Button variant='contained' color='success' className='m-' onClick={() => { navegador('/books/new') }}>Crear libro</Button>
+      <h1 className='text-3xl m-5 text-white'>Lista de libros</h1>
+      <Button variant='contained' color='success' className='mb-10' onClick={() => { navegador('/books/new') }}>Crear libro</Button>
       <div>
         {loading ? <LoadIndicator id="large-indicator" height={200} width={200} /> :
 
