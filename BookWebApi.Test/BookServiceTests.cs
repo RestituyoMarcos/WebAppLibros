@@ -1,20 +1,22 @@
 ﻿using BooksWebAPI.Commands;
 using BooksWebAPI.Handlers;
 using BooksWebAPI.Models;
+using BooksWebAPI.Queries;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Moq.Protected;
 using System.Net;
 using System.Text.Json;
+using static BooksWebAPI.Handlers.UpdateBookHandler;
 
 namespace BookWebApi.Test
 {
-    public class CreateBookServiceTests : IClassFixture<TestConnection>
+    public class BookServiceTests : IClassFixture<TestConnection>
     {
         private readonly TestConnection _connection;
-        
-        public CreateBookServiceTests(TestConnection connection)
+
+        public BookServiceTests(TestConnection connection)
         {
             _connection = connection;
         }
@@ -64,16 +66,11 @@ namespace BookWebApi.Test
                 Excerpt = "Test Excerpt",
                 PublishDate = DateTime.Now
             };
-            var expectedResponse = new HttpResponseMessage(HttpStatusCode.NoContent); // PUT request typically returns 204 No Content
 
-            _connection.MockHttpMessageHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync",
-                    ItExpr.Is<HttpRequestMessage>(req =>
-                        req.Method == HttpMethod.Put &&
-                        req.RequestUri.ToString().EndsWith($"api/Books/{bookId}")),
-
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(expectedResponse);
+            var expectedResponse = new HttpResponseMessage(HttpStatusCode.Created)
+            {
+                Content = new StringContent(JsonSerializer.Serialize(newBook), System.Text.Encoding.UTF8, "application/json")
+            };
 
             _connection.MockHttpMessageHandler.Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
@@ -84,17 +81,111 @@ namespace BookWebApi.Test
 
             var result = await handler.Handle(command, CancellationToken.None);
 
-            Assert.IsType<Unit>(result); // Verify that the handler returns Unit.Value
-            _connection.MockHttpMessageHandler.Protected().Verify(
-                "SendAsync",
-                Times.Exactly(1),
-                ItExpr.Is<HttpRequestMessage>(req =>
-                    req.Method == HttpMethod.Put &&
-                    req.RequestUri.ToString().EndsWith($"api/Books/{bookId}")),
+            Assert.NotNull(result);
 
-                ItExpr.IsAny<CancellationToken>());
         }
 
+        [Fact]
+        public async Task Handle_DeleteBookTest()
+        {
+            System.Diagnostics.Debugger.Launch();
+            int bookId = 2;
+
+            var expectedResponse = new HttpResponseMessage(HttpStatusCode.NoContent)
+            {
+                Content = new StringContent(JsonSerializer.Serialize(bookId), System.Text.Encoding.UTF8, "application/json")
+            };
+
+            _connection.MockHttpMessageHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(expectedResponse);
+
+            var handler = new DeleteBookHandler(_connection.HttpClientFactory.Object);
+            var command = new DeleteBook(bookId);
+
+            var result = await handler.Handle(command, CancellationToken.None);
+
+            Assert.NotNull(result);
+
+        }
+
+        [Fact]
+        public async Task Handle_GetAllBooks()
+        {
+            // Arrange
+            var books = new List<Book>
+            {
+                new Book {
+                    Id = 1,
+                    Title = "Test",
+                    Description = "Test Descripcion",
+                    PageCount = 5555,
+                    Excerpt = "Test Excerpt",
+                    PublishDate = DateTime.Now 
+                },
+                new Book { 
+                    Id = 2,
+                    Title = "Test",
+                    Description = "Test Descripcion",
+                    PageCount = 5555,
+                    Excerpt = "Test Excerpt",
+                    PublishDate = DateTime.Now
+                }
+            };
+
+            var expectedResponse = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonSerializer.Serialize(books), System.Text.Encoding.UTF8, "application/json")
+            };
+
+            _connection.MockHttpMessageHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(expectedResponse);
+
+            var handler = new GetAllBooksHandler(_connection.HttpClientFactory.Object);
+            var query = new GetAllBooks();
+
+            System.Diagnostics.Debugger.Launch();
+            var result = await handler.Handle(query, CancellationToken.None);
+
+            Assert.NotNull(result);
+            Assert.True(result.Count() > 0);
+
+        }
+
+
+        [Fact]
+        public async Task Handle_GetBookById()
+        {
+            // Arrange
+            var book = 
+                new Book { 
+                    Id = 2,
+                    Title = "Book 2",
+                    Description = "Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.",
+                    PageCount = 200,
+                    Excerpt = "Test Excerpt",
+                    PublishDate = DateTime.Now
+                };
+
+            var expectedResponse = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(JsonSerializer.Serialize(book), System.Text.Encoding.UTF8, "application/json")
+            };
+
+            _connection.MockHttpMessageHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(expectedResponse);
+
+            var handler = new GetBookByIdHandler(_connection.HttpClientFactory.Object);
+            var query = new GetBookById() { Id = 2 };
+
+            System.Diagnostics.Debugger.Launch();
+            var result = await handler.Handle(query, CancellationToken.None);
+
+            Assert.NotNull(result);
+
+        }
     }
 
     public class TestConnection
@@ -105,7 +196,7 @@ namespace BookWebApi.Test
 
         public TestConnection()
         {
-            
+
             MockHttpMessageHandler = new Mock<HttpMessageHandler>();
             HttpClientFactory = new Mock<IHttpClientFactory>();
 

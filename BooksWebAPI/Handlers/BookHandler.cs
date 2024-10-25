@@ -31,7 +31,7 @@ namespace BooksWebAPI.Handlers
         }
     }
 
-    public class UpdateBookHandler : IRequestHandler<UpdateBook>
+    public class UpdateBookHandler : IRequestHandler<UpdateBook, Unit>
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
@@ -57,7 +57,7 @@ namespace BooksWebAPI.Handlers
             return Unit.Value;
         }
 
-        public class DeleteBookHandler : IRequestHandler<DeleteBook>
+        public class DeleteBookHandler : IRequestHandler<DeleteBook, Unit>
         {
             private readonly IHttpClientFactory _httpClientFactory;
 
