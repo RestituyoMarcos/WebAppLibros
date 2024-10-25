@@ -1,4 +1,6 @@
 import './App.css'
+import 'devextreme/dist/css/dx.dark.css';
+import 'sweetalert2/src/sweetalert2.scss'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import BookList from './components/BookList'
 import BookDetails from './components/BookDetails'
@@ -10,6 +12,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<BookList />} />
+        <Route path="/books" element={<BookList />} />
         <Route path="/books/new" element={<BookForm />} />
         <Route path="/books/:id" element={<BookDetails />} />
         <Route path="/books/:id/edit" element={<BookForm />} />

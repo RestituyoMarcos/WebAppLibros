@@ -44,3 +44,9 @@
 .read-the-docs {
   color: #888;
 }
+
+.dx-datagrid-headers {
+  background-color: #182381;
+  color: #fff !important;
+  font-weight: bold !important;
+}
