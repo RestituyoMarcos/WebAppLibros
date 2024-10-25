@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BooksWebAPI", "BooksWebAPI\BooksWebAPI.csproj", "{EB04B120-8362-4671-990B-B8DBCCB7D9F8}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "prjlibros", "prjlibros\prjlibros.esproj", "{1584FAA5-CB5F-4A81-93E4-742E496FDE70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB04B120-8362-4671-990B-B8DBCCB7D9F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB04B120-8362-4671-990B-B8DBCCB7D9F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB04B120-8362-4671-990B-B8DBCCB7D9F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB04B120-8362-4671-990B-B8DBCCB7D9F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1584FAA5-CB5F-4A81-93E4-742E496FDE70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1584FAA5-CB5F-4A81-93E4-742E496FDE70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1584FAA5-CB5F-4A81-93E4-742E496FDE70}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1584FAA5-CB5F-4A81-93E4-742E496FDE70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1584FAA5-CB5F-4A81-93E4-742E496FDE70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1584FAA5-CB5F-4A81-93E4-742E496FDE70}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B314646E-3D41-4A19-90EC-CFB9C8D31F45}
+	EndGlobalSection
+EndGlobal
